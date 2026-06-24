@@ -1,5 +1,8 @@
 import React from "react";
-import { useGetOracleStatus } from "@workspace/api-client-react";
+import {
+  useGetOracleStatus,
+  getGetOracleStatusQueryKey,
+} from "@workspace/api-client-react";
 import { Leaderboard } from "@/components/leaderboard";
 import { MatchSimulator } from "@/components/match-simulator";
 import { useEnforceDarkMode } from "@/hooks/use-dark-mode";
@@ -10,7 +13,8 @@ export default function Dashboard() {
 
   const { data: status } = useGetOracleStatus({
     query: {
-      refetchInterval: (data) => (data?.ready ? false : 2000),
+      queryKey: getGetOracleStatusQueryKey(),
+      refetchInterval: (query) => (query.state.data?.ready ? false : 2000),
     }
   });
 

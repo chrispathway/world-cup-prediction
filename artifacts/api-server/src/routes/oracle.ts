@@ -86,7 +86,7 @@ router.get("/oracle/simulation", (req, res) => {
     groupAdvancePct: Math.round(((groupAdvances[t.name] ?? 0) / N) * 1000) / 10,
   })).sort((a, b) => b.titlePct - a.titlePct);
 
-  res.json({ results, simulationsRun: N });
+  return res.json({ results, simulationsRun: N });
 });
 
 router.post("/oracle/predict-match", (req, res) => {
@@ -123,6 +123,8 @@ router.post("/oracle/predict-match", (req, res) => {
     homeElo: eloHome,
     awayElo: eloAway,
   });
+
+  return;
 });
 
 export default router;

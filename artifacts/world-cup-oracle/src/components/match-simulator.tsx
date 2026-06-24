@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useGetTeams, usePredictMatch } from "@workspace/api-client-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { AnimatedNumber } from "@/components/ui/animated-number";
 
@@ -85,36 +84,38 @@ export function MatchSimulator() {
         <div className="flex flex-col md:flex-row gap-4 items-end mb-8">
           <div className="flex-1 w-full">
             <label className="text-xs text-muted-foreground uppercase font-mono mb-2 block">Team 1</label>
-            <Select value={homeTeam} onValueChange={setHomeTeam} disabled={teamsLoading || isSimulating}>
-              <SelectTrigger className="font-sans border-border bg-background/50">
-                <SelectValue placeholder="Select team..." />
-              </SelectTrigger>
-              <SelectContent>
-                {teams.map((team) => (
-                  <SelectItem key={team.code} value={team.name}>
-                    {team.flagEmoji} {team.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <select
+              value={homeTeam}
+              onChange={(e) => setHomeTeam(e.target.value)}
+              disabled={teamsLoading || isSimulating}
+              className="w-full h-9 rounded-md border border-border bg-background/50 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <option value="">Select team...</option>
+              {teams.map((team) => (
+                <option key={team.code} value={team.name}>
+                  {team.flagEmoji} {team.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="text-muted-foreground pb-2 px-2 font-mono text-sm hidden md:block">VS</div>
 
           <div className="flex-1 w-full">
             <label className="text-xs text-muted-foreground uppercase font-mono mb-2 block">Team 2</label>
-            <Select value={awayTeam} onValueChange={setAwayTeam} disabled={teamsLoading || isSimulating}>
-              <SelectTrigger className="font-sans border-border bg-background/50">
-                <SelectValue placeholder="Select team..." />
-              </SelectTrigger>
-              <SelectContent>
-                {teams.map((team) => (
-                  <SelectItem key={team.code} value={team.name}>
-                    {team.flagEmoji} {team.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <select
+              value={awayTeam}
+              onChange={(e) => setAwayTeam(e.target.value)}
+              disabled={teamsLoading || isSimulating}
+              className="w-full h-9 rounded-md border border-border bg-background/50 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <option value="">Select team...</option>
+              {teams.map((team) => (
+                <option key={team.code} value={team.name}>
+                  {team.flagEmoji} {team.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <Button

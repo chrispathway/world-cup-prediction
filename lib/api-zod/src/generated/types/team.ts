@@ -6,6 +6,10 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface HealthStatus {
-  status: string;
+export interface Team {
+  name: string;
+  code: string;
+  elo: number;
+  group: string;
+  flagEmoji: string;
 }

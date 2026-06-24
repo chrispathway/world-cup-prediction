@@ -1,5 +1,6 @@
-import app from "./app";
-import { logger } from "./lib/logger";
+import app from "./app.js";
+import { logger } from "./lib/logger.js";
+import { initOracle } from "./routes/oracle.js";
 
 const rawPort = process.env["PORT"];
 
@@ -22,4 +23,11 @@ app.listen(port, (err) => {
   }
 
   logger.info({ port }, "Server listening");
+
+  // Initialize oracle in background (non-blocking)
+  initOracle().then(() => {
+    logger.info("Oracle initialized successfully");
+  }).catch((err) => {
+    logger.error({ err }, "Oracle initialization failed");
+  });
 });
